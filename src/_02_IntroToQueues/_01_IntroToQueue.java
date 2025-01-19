@@ -30,7 +30,9 @@ package _02_IntroToQueues;
  * Repeat until there are no more elements in the stack and queue
  */
 
+import java.awt.List;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
@@ -41,10 +43,11 @@ public class _01_IntroToQueue {
     	
     		Stack<Double> ending = new Stack<Double>();
     		 Random rand = new Random(100);
+    		 ArrayList<Double> listen;
         // 2. Use a loop to add 100 random doubles between 0 and 100 to the Stack
     	 for(int i = 0; i < 100; i++) {
     	
-    		 ending.add(rand.nextDouble());
+    		 ending.add(rand.nextDouble()*100);
     	 }
         // 3. Create a Queue of Doubles using the ArrayDeque class
         //    Note: you have to use the capitalized Double and not double
@@ -53,17 +56,32 @@ public class _01_IntroToQueue {
     	  while( ending.size() > 0) {
     	  for(int i = 0; i < 5; i++) {
       		 myQueue.add(ending.pop());
+      		
       	 }
+    	  while( myQueue.size() >=  5 ) {
+    		    listen = new ArrayList<Double>(rand.nextInt(5)+1);
+    		    int ra = rand.nextInt(5)+1;
+    		  for(  int i = 0; i < ra; i++) {
+    			
+    			  listen.add(myQueue.remove());
+    			  }
+    		  System.out.println("removing "+(ra)+" elements from queue: "+listen);
     	  }
-    	  while( ending.size() > 0 && myQueue.size() > 0) {
-
-    	  for(int i = 0; i < rand.nextInt(5); i++) {
-    		  System.out.println(myQueue.remove());	
-     
-      	 }
+    	  }
+    	  while( myQueue.size() > 0 && ending.size() == 0) {
+    		  
+    		  listen = new ArrayList<Double>(myQueue.size());
+    		  for(  int i = 0; i < myQueue.size(); i++) {
+    			 
+    			  listen.add(myQueue.remove());
+    			
+    			  }
+    		  System.out.println("removing "+(myQueue.size())+" elements from queue: "+listen);
+    		  
+    	  }
+    	  System.out.println("queue size: "+myQueue.size()+" stack size: "+ending.size());
     	  
     	  
-    	  }
     }
         // 5. Print and remove a random number of elements, from 1 to 5 elements,
         //    from the front of the Queue. Example:
@@ -77,4 +95,4 @@ public class _01_IntroToQueue {
         //    and all the elements are printed
         
     }
-}
+
