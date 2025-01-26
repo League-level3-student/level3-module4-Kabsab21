@@ -26,6 +26,9 @@
 package _02_IntroToQueues;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /*
  * Complete the calculateWaitTime() method here!
@@ -35,7 +38,37 @@ import java.util.ArrayDeque;
 public class _02_BaseballTickets {
 
     public static int calculateWaitTime( ArrayDeque<Integer> ticketsQueue, int position ) {
-        
-        return -1;
+    	 System.out.println("__________________________________");
+    	int waitime = 0;
+    	 ArrayList<Integer> list = new ArrayList<Integer>();
+    	 
+    	for( int i = 0; i < 5; i++) {
+    		list.add(ticketsQueue.remove());
+    	}
+    	System.out.println(list);
+    	System.out.println(list.get(position));
+    	
+        while(list.get(position) > 0 ) {
+        	
+        	System.out.println("round 1");
+        	
+        int n =	list.remove(0);
+  position= position-1;
+        if(n > 0) {
+        	n = n-1;
+        	list.add(n);
+        	waitime++;
+        	
+        	System.out.println(position);
+        	  System.out.println("this is n: "+n+" this is list: "+list);
+        }
+        if( position < 0 ) {
+        	position = 4;
+        }
+        	
+        }
+        System.out.println("position "+list.get(position));
+        System.out.println(waitime);
+        return waitime;
     }
 }
