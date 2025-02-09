@@ -53,7 +53,10 @@ public class _02_BaseballTickets {
         	System.out.println("round 1");
         	
         int n =	list.remove(0);
-  position= position-1;
+        position= position-1;
+        if( position < 0 ) {
+        	position = list.size();
+        }
         if(n > 0) {
         	n = n-1;
         	list.add(n);
@@ -62,9 +65,7 @@ public class _02_BaseballTickets {
         	System.out.println(position);
         	  System.out.println("this is n: "+n+" this is list: "+list);
         }
-        if( position < 0 ) {
-        	position = 4;
-        }
+       
         	
         }
         System.out.println("position "+list.get(position));
