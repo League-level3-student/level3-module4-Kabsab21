@@ -1,5 +1,8 @@
 package _03_Hangman;
 
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -10,33 +13,46 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class Hangman {
+public class Hangman implements ActionListener {
 	static ArrayDeque<String> q = new ArrayDeque<String>();
 	static ArrayList<String> list = new ArrayList<String>();
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
+	JLabel labelt = new JLabel();
 	JLabel label = new JLabel();
+	JTextField txt = new JTextField();
 	static String word;
+	static ArrayList<Character> letters = new ArrayList<Character>();
+	static ArrayList<String> corresponding = new ArrayList<String>();
 	static int lives = 10;
 	int score = 0;
 	
 	 
 	
 	void setup(){
-		frame.add(panel);
+		frame.add(panel);	
 		frame.setVisible(true);
+		panel.add(labelt);
 		panel.add(label);
+		txt.addActionListener(this);
+		txt.setPreferredSize(new Dimension( 100,100));
+		panel.add(txt);
+		frame.setSize(100,100);
+		labelt.setText("lives: "+lives);
+		label.setText(corresponding+"");
 		frame.setTitle("Hang Man");
+		frame.setSize(500, 500);
 		frame.pack();
 	}
 	
 	 public static void main(String[] args) {
 		 Hangman man = new Hangman();
 		 man.listmaker();
-		 man.setup();
-		 man.game();
 		
+		 man.game();
+		 man.setup();
 		}
 		
 		
@@ -74,6 +90,17 @@ public class Hangman {
 		
 		void game() {
 			word = q.pop();
+			for( int i = 0; i < word.length(); i++) {
+				letters.add(word.charAt(i));
+				corresponding.add("_");
+			}
+			System.out.println(letters);
+			System.out.println(corresponding);
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
 			
 		}
 		
