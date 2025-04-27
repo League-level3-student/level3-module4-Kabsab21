@@ -26,6 +26,7 @@ public class Hangman implements KeyListener, ActionListener {
 	JLabel labelt = new JLabel();
 	JLabel label = new JLabel();
 	JButton button = new JButton();
+	JButton button2 = new JButton();
 	JTextField txt = new JTextField();
 	static String word;
 	static ArrayList<Character> letters = new ArrayList<Character>();
@@ -33,6 +34,9 @@ public class Hangman implements KeyListener, ActionListener {
 	static int lives = 10;
 	int score = 0;
 	char keypressed;
+	int nuum;
+	
+	
 	
 	 
 	
@@ -45,6 +49,8 @@ public class Hangman implements KeyListener, ActionListener {
 		txt.addKeyListener(this);
 		button.addActionListener(this);
 		button.setText("enter");
+		button2.addActionListener(this);
+		button2.setText("new game");
 		panel.add(txt);
 		panel.add(button);
 		frame.setSize(100,100);
@@ -59,6 +65,7 @@ public class Hangman implements KeyListener, ActionListener {
 		 Hangman man = new Hangman();
 		 man.listmaker();
 		
+		 
 		 man.game();
 		 man.setup();
 		}
@@ -67,7 +74,7 @@ public class Hangman implements KeyListener, ActionListener {
 		void listmaker() {
 			
 			String num = JOptionPane.showInputDialog(null, "please enter a number between 0 and 266" );
-			int nuum = Integer.parseInt(num);
+			 nuum = Integer.parseInt(num);
 			while( nuum > list.size()) {
 				Boolean equal = false;
 				String wrd = Utilities.readRandomLineFromFile("dictionary.txt");
@@ -112,9 +119,9 @@ public class Hangman implements KeyListener, ActionListener {
 			// TODO Auto-generated method stub
 		 System.out.println("key pressede"+e.getKeyChar());
 		  keypressed = (char) e.getKeyChar();
-		//
+		
 		 if( txt.getText().length() >= 1) {
-		//	 txt.getText().substring(txt.getText().length() -1,txt.getText().length() );
+		
 			 txt.setText(txt.getText().substring(txt.getText().length() -1,txt.getText().length() - 1));
 			 }
 		 }
@@ -134,31 +141,51 @@ public class Hangman implements KeyListener, ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			Boolean living = false;
+			
 			System.out.println("SIERE");
 			JButton button1 = (JButton) e.getSource();
 			if( button1 == button) {
 				for( int i = 0; i < letters.size(); i++ ) {
 					if( letters.get(i).equals(keypressed)) {
+						living = true;
 						corresponding.set(i, letters.get(i)+"");
 						System.out.println(letters.get(i));
-					}else {
-						lives = lives -1;
-						System.out.println(lives);
-						if(lives == 0) {
-							JOptionPane.showInputDialog(null, "game over " );
-							// chat maybe edit this segment.
-						}
+						
 					}
 				}
+				if(living == false ) {
+					lives = lives -1;
+				}
+				System.out.println(lives+" "+living);
+				if(lives == 0) {
+					JOptionPane.showMessageDialog(null, "game lost " );
+				}
+				if(letters.toString().equals(corresponding.toString())) {
+					JOptionPane.showMessageDialog(null, "game won " );
+					panel.add(button2);
+					frame.pack();
+					score = score+1;
+				}
 				label.setText(corresponding+"");
+				labelt.setText("lives: "+lives);
+			}
+			
+			if( button1 == button2) {
+				if(q.size() == 0){
+					JOptionPane.showMessageDialog(null, "All rounds are completed, you have won "+score+"/"+nuum+" rounds" );
+				}
+				else {
+			game();
+			setup();
+				}
 			}
 			
 		}
 		
 		
-	// 
-	// when user guess a letter, iterate through array to find letters macht, if letters match replace __ in blank array with letter
-	// if not, reduce the lives by one. onece arrays are fully equal to each other, write score one if win, if run out of lives lose.
+	 
+	
 	// give user their score out of all games played.
 	
 }
