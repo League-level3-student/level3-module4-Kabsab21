@@ -89,7 +89,7 @@ public class Hangman implements KeyListener, ActionListener {
 				
 				if( equal == false ) {
 						list.add(wrd);
-						System.out.println(list.size()+" word added: "+wrd);
+					//	System.out.println(list.size()+" word added: "+wrd);
 				}
 				
 			}
@@ -117,7 +117,7 @@ public class Hangman implements KeyListener, ActionListener {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
-		 System.out.println("key pressede"+e.getKeyChar());
+		// System.out.println("key pressede"+e.getKeyChar());
 		  keypressed = (char) e.getKeyChar();
 		
 		 if( txt.getText().length() >= 1) {
@@ -143,21 +143,21 @@ public class Hangman implements KeyListener, ActionListener {
 			// TODO Auto-generated method stub
 			Boolean living = false;
 			
-			System.out.println("SIERE");
+		//	System.out.println("SIERE");
 			JButton button1 = (JButton) e.getSource();
 			if( button1 == button) {
 				for( int i = 0; i < letters.size(); i++ ) {
 					if( letters.get(i).equals(keypressed)) {
 						living = true;
 						corresponding.set(i, letters.get(i)+"");
-						System.out.println(letters.get(i));
+					//	System.out.println(letters.get(i));
 						
 					}
 				}
 				if(living == false ) {
 					lives = lives -1;
 				}
-				System.out.println(lives+" "+living);
+			//	System.out.println(lives+" "+living);
 				if(lives == 0) {
 					JOptionPane.showMessageDialog(null, "game lost " );
 				}
@@ -176,6 +176,8 @@ public class Hangman implements KeyListener, ActionListener {
 					JOptionPane.showMessageDialog(null, "All rounds are completed, you have won "+score+"/"+nuum+" rounds" );
 				}
 				else {
+					letters.removeAll(letters);
+					corresponding.removeAll(corresponding);
 			game();
 			setup();
 				}
@@ -186,7 +188,7 @@ public class Hangman implements KeyListener, ActionListener {
 		
 	 
 	
-	// give user their score out of all games played.
+	
 	
 }
 
