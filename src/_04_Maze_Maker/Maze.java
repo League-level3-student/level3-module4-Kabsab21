@@ -34,13 +34,14 @@ public class Maze {
 
     // 5. This method returns the selected cell
     public Cell getCell(int row, int col){
-    	if( row > rows) {
+    	
+    	if( row >= rows) {
     		return null;
     	}
     	if( row < 0) {
     		return null;
     	}
-    	if( col > cols) {
+    	if( col >= cols) {
     		return null;
     	}
     	if( col < 0) {

@@ -23,7 +23,7 @@ public class MazeMaker {
         //    This will be the starting point. Then select a random cell along
         //    the opposite wall and remove its exterior wall. This will be the
         //    finish line.
-        int rar = randGen.nextInt(c);
+        int rar = randGen.nextInt(c-1);
         removeWalls(maze.getCell(0, rar), maze.getCell(0, rar+1));
         removeWalls(maze.getCell(r-1, rar), maze.getCell(r-1, rar+1));
         // 2. select a random cell in the maze to start 
@@ -37,27 +37,38 @@ public class MazeMaker {
     private static void selectNextPath(Cell currentCell ) {
     	
         // A. SET currentCell as visited
+    	ArrayList<Cell> visited = new ArrayList<Cell>();
     	currentCell.setBeenVisited(true);
+    	System.out.println(currentCell.getCol()+" "+currentCell.getRow());
         // B. check for unvisited neighbors using the cell
-    	
-        			if(  maze.getCell(currentCell.getRow()+1, currentCell.getCol()).hasBeenVisited() == false){
+    	Cell cell = maze.getCell(currentCell.getRow()+1, currentCell.getCol());
+       			if(  cell != null && cell.hasBeenVisited() == false ){
         				System.out.println("has yet to be visited and to the left of current cell");
+        				visited.add(cell);
         			}
-        			if(  maze.getCell(currentCell.getRow()-1, currentCell.getCol()).hasBeenVisited() == false){
+       		Cell cell1 =	maze.getCell(currentCell.getRow()-1, currentCell.getCol());
+        		if(  cell1 != null && cell1.hasBeenVisited() == false ){
         				System.out.println("has yet to be visited and to the right of current cell");
+        				visited.add(cell1);
         			}
-        			if(  maze.getCell(currentCell.getRow(), currentCell.getCol()+1).hasBeenVisited() == false){
+        		Cell 	cell2 =	maze.getCell(currentCell.getRow(), currentCell.getCol()+1);
+        		if( cell2 != null && cell2.hasBeenVisited() == false ){
         				System.out.println("has yet to be visited and to the under of current cell");
+        				visited.add(cell2);
         			}
-        			if(  maze.getCell(currentCell.getRow(), currentCell.getCol()-1).hasBeenVisited() == false){
+        		Cell  cell3 =		maze.getCell(currentCell.getRow(), currentCell.getCol()-1);
+        		if(  cell3 != null && cell3.hasBeenVisited() == false ){
         				System.out.println("has yet to be visited and to the top of current cell");
+        				visited.add(cell3);
         			}
-        		
     	
+        		if(visited.size() > 0) {
         // C. if has unvisited neighbors,
-
+        		int st = randGen.nextInt(visited.size()-1);
+        		
         // C1. select one at random.
-
+        		uncheckedCells.push(visited.get(st));
+        		}
         // C2. push it to the stack
 
         // C3. remove the wall between the two cells
