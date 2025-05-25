@@ -26,12 +26,13 @@ public class MazeDisplay extends JPanel{
         window.setVisible(true);
         window.pack();
 
-        maze = MazeMaker.generateMaze(5, 5);
+        maze = MazeMaker.generateMaze(5,5);
         repaint();
     }
 
     @Override
     public void paintComponent(Graphics g){
+    	if(maze!=null)
         maze.draw(g);
     }
 

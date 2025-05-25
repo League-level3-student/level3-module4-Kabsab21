@@ -1,3 +1,4 @@
+
 package _04_Maze_Maker;
 
 import java.util.ArrayList;
@@ -64,10 +65,15 @@ public class MazeMaker {
     	
         		if(visited.size() > 0) {
         // C. if has unvisited neighbors,
-        		int st = randGen.nextInt(visited.size()-1);
         		
-        // C1. select one at random.
-        		uncheckedCells.push(visited.get(st));
+        		int st = randGen.nextInt(visited.size());
+        		
+        // C1. select one at random. 
+        		Cell ste = uncheckedCells.push(visited.get(st));
+        		System.out.println(ste.getRow()+" "+ste.getCol());
+        		 removeWalls(ste, currentCell);
+        		 ste.setBeenVisited(true);
+        		 selectNextPath( ste );
         		}
         // C2. push it to the stack
 
@@ -79,7 +85,11 @@ public class MazeMaker {
 
 
         // D. if all neighbors are visited
-
+        		if( visited.size() == 0 ) {
+        			if( uncheckedCells.size() > 0 ) {
+        			selectNextPath(	uncheckedCells.pop() );
+        			}
+        		}
         // D1. if the stack is not empty
 
         // D1a. pop a cell from the stack
@@ -93,7 +103,8 @@ public class MazeMaker {
     // This method will check if c1 and c2 are adjacent.
     // If they are, the walls between them are removed.
     private static void removeWalls(Cell c1, Cell c2) {
-        if (c1.getRow() == c2.getRow()) {
+    	if( c1 != null && c2 != null ) {
+        if (c1.getRow() == c2.getRow() ) {
             if (c1.getCol() > c2.getCol()) {
                 c1.setWestWall(false);
                 c2.setEastWall(false);
@@ -110,6 +121,7 @@ public class MazeMaker {
                 c2.setNorthWall(false);
             }
         }
+    	}
     }
 
     // This method returns a list of all the neighbors around the specified
